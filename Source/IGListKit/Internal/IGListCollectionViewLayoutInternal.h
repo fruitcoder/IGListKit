@@ -5,8 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#import <TargetConditionals.h>
+
 static CGRect IGListRectIntegralScaled(CGRect rect) {
-    CGFloat scale = [[UIScreen mainScreen] scale];
+#if TARGET_OS_VISION
+	CGFloat scale = 1.0;
+#else
+	CGFloat scale = [[UIScreen mainScreen] scale];
+#endif
     return CGRectMake(floorf(rect.origin.x * scale) / scale,
                       floorf(rect.origin.y * scale) / scale,
                       ceilf(rect.size.width * scale) / scale,
